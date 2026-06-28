@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { profile, stats } from '../data/site'
+import { profile, stats, education } from '../data/site'
 import RotatingWord from './ui/RotatingWord'
 import MagneticButton from './ui/MagneticButton'
 import Counter from './ui/Counter'
@@ -50,29 +50,34 @@ export default function Hero() {
           {profile.heroSub}
         </motion.p>
 
+        {/* Education */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-9 flex flex-wrap items-center gap-3"
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-10 flex flex-wrap gap-3"
         >
-          <MagneticButton href="#work" className="btn-primary">
-            View My Work
-            <span aria-hidden="true">→</span>
-          </MagneticButton>
-          <MagneticButton href="#contact" className="btn-ghost">
-            Let’s Talk
-          </MagneticButton>
+          {education.map((e) => (
+            <div
+              key={e.degree}
+              className="flex items-center gap-2.5 rounded-full border border-border bg-card px-4 py-2 text-sm"
+            >
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+              <span className="font-semibold text-foreground">{e.field}</span>
+              <span className="text-muted-foreground">·</span>
+              <span className="font-bold text-primary">{e.degree.match(/\(([^)]+)\)/)?.[1]}</span>
+            </div>
+          ))}
         </motion.div>
 
         {/* Real stats */}
-        <div className="mt-16 grid grid-cols-2 gap-4 border-t border-border pt-10 md:mt-20 md:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
+              transition={{ duration: 0.5, delay: 0.6 + i * 0.08 }}
             >
               <div className="font-display text-4xl font-extrabold text-primary md:text-5xl">
                 <Counter value={s.value} suffix={s.suffix} />
